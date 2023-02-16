@@ -28,9 +28,9 @@ def face_encoding():
     image=face_recognition.load_image_file(BytesIO(response.content))
     face_endoings = face_recognition.face_encodings(image,model="large")
     if len(face_endoings) > 1:
-            click.echo("WARNING: More than one face found in {}. Only considering the first face.".format(file))
+            click.echo("WARNING: More than one face found in {}. Only considering the first face.".format(url))
     if len(face_endoings) == 0:
-        click.echo("WARNING: No faces found in {}. Ignoring file.".format(file))
+        click.echo("WARNING: No faces found in {}. Ignoring file.".format(url))
         return json.dumps({
             'status': 'ok',
             'error': [],
@@ -57,9 +57,9 @@ def face_encoding_cnn():
     face_locations = face_recognition.face_locations(image,model="cnn")
     face_endoings = face_recognition.face_encodings(image,known_face_locations=face_locations,model="large")
     if len(face_endoings) > 1:
-            click.echo("WARNING: More than one face found in {}. Only considering the first face.".format(file))
+            click.echo("WARNING: More than one face found in {}. Only considering the first face.".format(url))
     if len(face_endoings) == 0:
-        click.echo("WARNING: No faces found in {}. Ignoring file.".format(file))
+        click.echo("WARNING: No faces found in {}. Ignoring file.".format(url))
         return json.dumps({
             'status': 'ok',
             'error': [],
