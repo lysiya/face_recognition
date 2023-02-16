@@ -1,7 +1,7 @@
 # 人脸编码接口提供
 from PIL import Image
 import face_recognition
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, request
 import requests
 from io import BytesIO
 import json
