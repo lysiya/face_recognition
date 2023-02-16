@@ -77,7 +77,7 @@ def face_encoding_cnn():
 print('starting...')
 
 if __name__ == '__main__':
-    app.run(debug=True,port=6666)
+    app.run(host='0.0.0.0', port=6666, debug=True)
     print('started.')
 
 # if __name__ == "__main__":
