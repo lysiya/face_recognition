@@ -21,8 +21,33 @@ def get_image(url_field, file_field):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route('/face/encoding', methods=['GET', 'POST'])
 def face_encoding():
+    url = request.form['url']
+    response = requests.get(url)
+    image=face_recognition.load_image_file(BytesIO(response.content))
+    face_endoings = face_recognition.face_encodings(image)
+    if len(face_endoings) > 1:
+            click.echo("WARNING: More than one face found in {}. Only considering the first face.".format(url))
+    if len(face_endoings) == 0:
+        click.echo("WARNING: No faces found in {}. Ignoring file.".format(url))
+        return json.dumps({
+            'status': 'ok',
+            'error': [],
+            'method': '/face/encoding',
+            'result': []
+        })
+    face_encoding = face_endoings[0].tolist()
+    return json.dumps({
+        'status': 'ok',
+        'error': [],
+        'method': '/face/encoding',
+        'result': face_encoding
+    })
+
+@app.route('/face/encoding/large', methods=['GET', 'POST'])
+def face_encoding_large():
     url = request.form['url']
     response = requests.get(url)
     image=face_recognition.load_image_file(BytesIO(response.content))
